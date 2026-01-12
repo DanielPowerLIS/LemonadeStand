@@ -1,5 +1,7 @@
 package main.java.com.explainjava.domain;
 
+import java.util.Objects;
+
 public class Supplier {
     private int id;
     private String name;
@@ -46,5 +48,15 @@ public class Supplier {
                 ", name= " + this.name + '\'' +
                 ", email= " + this.email + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Supplier supplier = (Supplier) o;
+
+        return Objects.equals(this.id, supplier.getId());
     }
 }
