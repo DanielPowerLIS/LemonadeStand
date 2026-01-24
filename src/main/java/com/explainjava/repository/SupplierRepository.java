@@ -4,6 +4,7 @@ import main.java.com.explainjava.domain.Supplier;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class SupplierRepository {
     private Map<Integer, Supplier> suppliers;
@@ -41,5 +42,9 @@ public class SupplierRepository {
     //Metodo para leer a 1 solo proveedor
     public Supplier findById(int entityId){
         return this.suppliers.get(entityId);
+    }
+
+    public Set<Integer> getAllIds(){
+        return this.suppliers.keySet();
     }
 }

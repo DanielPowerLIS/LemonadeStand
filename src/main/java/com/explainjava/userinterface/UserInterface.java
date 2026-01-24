@@ -83,16 +83,13 @@ public class UserInterface {
     }
 
     private void handleAddSupplier(Scanner scanner){
-        System.out.print("ID: ");
-        int id = scanner.nextInt();
-
         System.out.print("Name: ");
         String name = scanner.next();
 
         System.out.print("Contact email: ");
         String contactEmail = scanner.next();
 
-        Supplier savedSupplier = supplierService.saveSupplier(id, name, contactEmail);
+        Supplier savedSupplier = supplierService.saveSupplier( name, contactEmail);
         System.out.printf("The supplier with ID=%s has been saved \n", savedSupplier.getId());
 
     }
@@ -121,7 +118,7 @@ public class UserInterface {
 
     private void handleShowSuppliers(){
         Iterable<Supplier> supplierList = supplierService.findAll();
-
+        displaySuppliers(supplierList);
     }
 
     private void displaySuppliers(Iterable<Supplier> suppliers){
