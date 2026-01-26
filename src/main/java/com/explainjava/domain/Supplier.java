@@ -33,7 +33,7 @@ public class Supplier {
         this.id = ID;
     }
 
-    public String email(){
+    public String getEmail(){
         return this.email;
     }
 
