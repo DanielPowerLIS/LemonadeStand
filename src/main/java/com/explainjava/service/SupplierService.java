@@ -1,22 +1,27 @@
 package main.java.com.explainjava.service;
 
 import main.java.com.explainjava.domain.Supplier;
+import main.java.com.explainjava.exceptions.IDNotUniqueException;
+import main.java.com.explainjava.exceptions.ValidationException;
 import main.java.com.explainjava.repository.SupplierRepository;
+import main.java.com.explainjava.validators.SupplierValidator;
 
 import java.util.Set;
 
 public class SupplierService {
     private SupplierRepository supplierRepository;
+    private SupplierValidator supplierValidator;
 
-    public SupplierService(SupplierRepository supplierRepository){
+    public SupplierService(SupplierRepository supplierRepository, SupplierValidator supplierValidator){
         this.supplierRepository = supplierRepository;
+        this.supplierValidator = supplierValidator;
     }
 
-    public Supplier saveSupplier(String name, String contacEmail){
+    public Supplier saveSupplier(String name, String contactEmail) throws IDNotUniqueException, ValidationException {
         Set<Integer> suppliersId = this.supplierRepository.getAllIds();
         int id = GenerateIdSupplier.generateID(suppliersId);
 
-        Supplier supplier = new Supplier(id, name, contacEmail);
+        Supplier supplier = new Supplier(id, name, contactEmail);
         return this.supplierRepository.save(supplier);
     }
 

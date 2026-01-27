@@ -1,6 +1,9 @@
 package test.com.explainjava.domain;
 
 import main.java.com.explainjava.domain.Supplier;
+import main.java.com.explainjava.exceptions.IDNotUniqueException;
+import main.java.com.explainjava.exceptions.ValidationException;
+import main.java.com.explainjava.repository.SupplierRepository;
 
 public class SupplierTest {
 
@@ -21,12 +24,24 @@ public class SupplierTest {
         supplierTest.setEmail("contact@lemonadesTest.com");
 
         assert supplierTest.getId() == 2;
-        assert supplierTest.getName() == "Lemonades Test";
-        assert supplierTest.getEmail() == "contact@lemonadesTest.com";
+        assert supplierTest.getName().equals("Lemonades Test");
+        assert supplierTest.getEmail().equals("contact@lemonadesTest.com");
     }
 
-    public void testAllDomain(){
+//  Este metodo solo fue agregado para probar las excepciones
+//    public void shouldNotSaveTheElement_whenWeAddNotUniqueElement() throws IDNotUniqueException {
+//        SupplierRepository supplierRepository = new SupplierRepository();
+//        Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
+//        Supplier secondSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonades.com");
+//
+//        Supplier firstSavedSupplier = supplierRepository.save(firstSupplierToSave);
+//        Supplier secondSavedSupplier = supplierRepository.save(secondSupplierToSave);
+//        assert false;
+//    }
+
+    public void testAllDomain() throws ValidationException, IDNotUniqueException{
         shouldGetCorrectValues_whenConstructorIsCalled();
         shouldSetCorrectVales_whenSettersAreUse();
+//        shouldNotSaveTheElement_whenWeAddNotUniqueElement();
     }
 }

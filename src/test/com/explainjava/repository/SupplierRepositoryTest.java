@@ -1,13 +1,15 @@
 package test.com.explainjava.repository;
 
 import main.java.com.explainjava.domain.Supplier;
+import main.java.com.explainjava.exceptions.IDNotUniqueException;
+import main.java.com.explainjava.exceptions.ValidationException;
 import main.java.com.explainjava.repository.SupplierRepository;
 
 import java.awt.*;
 
 public class SupplierRepositoryTest {
 
-    public void shouldSaveOneElement_whenSaveIsCalled(){
+    public void shouldSaveOneElement_whenSaveIsCalled()throws IDNotUniqueException{
         SupplierRepository supplierRepositoryTest = new SupplierRepository();
         Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonadesTest.com");
 
@@ -20,7 +22,7 @@ public class SupplierRepositoryTest {
 
     }
 
-    public void shoulSaveTwoElements_whenSaveIsCalledTwice(){
+    public void shoulSaveTwoElements_whenSaveIsCalledTwice()throws IDNotUniqueException{
         SupplierRepository supplierRepositoryTest = new SupplierRepository();
 
         Supplier firstSupplierToSave = new Supplier(1, "Lemonades", "contact@lemonadesTest.com");
@@ -30,10 +32,10 @@ public class SupplierRepositoryTest {
         Supplier secondSavedSupplier = supplierRepositoryTest.save(secondSupplierToSave);
 
         assert firstSaveSupplier.getId() == 1;
-        assert firstSaveSupplier.getName() == "Lemonades";
+        assert firstSaveSupplier.getName().equals("Lemonades");
         assert supplierRepositoryTest.findById(3) == null;
 
-        assert secondSavedSupplier == null;
+        assert secondSavedSupplier != null;
         assert secondSavedSupplier.getId() == 2;
         assert secondSavedSupplier.getName().equals("Water");
 
@@ -42,7 +44,7 @@ public class SupplierRepositoryTest {
 
     }
 
-    public void shouldUpdateSupplier_whenUpdateMethodCalled(){
+    public void shouldUpdateSupplier_whenUpdateMethodCalled() throws IDNotUniqueException{
         SupplierRepository supplierRepositoryTest = new SupplierRepository();
 
         Supplier supplierToUpdate = new Supplier(1, "Lemonades", "contact@lemonadesTest.com");
@@ -59,7 +61,7 @@ public class SupplierRepositoryTest {
 
     }
 
-    public void shoulDeleteSupplier_whenDeletedMethodIsCalled(){
+    public void shoulDeleteSupplier_whenDeletedMethodIsCalled() throws IDNotUniqueException{
         SupplierRepository supplierRepositoryTest = new SupplierRepository();
 
         Supplier supplierToDelete = new Supplier(1, "Lemonades", "contact@lemonades.com");
@@ -73,7 +75,7 @@ public class SupplierRepositoryTest {
 
     }
 
-    public void shouldFindSupplier_whenFindMethodIsCalled(){
+    public void shouldFindSupplier_whenFindMethodIsCalled() throws IDNotUniqueException {
         SupplierRepository supplierRepositoryTest = new SupplierRepository();
 
         Supplier firsSupplierToSave = new Supplier(1, "Lemonades", "contac@lemonades.com");
@@ -89,7 +91,7 @@ public class SupplierRepositoryTest {
         assert secondSupplier.getId() == 2;
     }
 
-    public void testAllRepository(){
+    public void testAllRepository() throws ValidationException, IDNotUniqueException {
         shouldSaveOneElement_whenSaveIsCalled();
         shoulSaveTwoElements_whenSaveIsCalledTwice();
         shouldUpdateSupplier_whenUpdateMethodCalled();

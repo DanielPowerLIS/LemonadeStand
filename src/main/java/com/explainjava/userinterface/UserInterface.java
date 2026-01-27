@@ -1,6 +1,8 @@
 package main.java.com.explainjava.userinterface;
 
 import main.java.com.explainjava.domain.Supplier;
+import main.java.com.explainjava.exceptions.IDNotUniqueException;
+import main.java.com.explainjava.exceptions.ValidationException;
 import main.java.com.explainjava.service.SupplierService;
 
 import java.util.Scanner;
@@ -89,8 +91,15 @@ public class UserInterface {
         System.out.print("Contact email: ");
         String contactEmail = scanner.next();
 
-        Supplier savedSupplier = supplierService.saveSupplier( name, contactEmail);
-        System.out.printf("The supplier with ID=%s has been saved \n", savedSupplier.getId());
+
+
+        try{
+            Supplier savedSupplier = supplierService.saveSupplier( name, contactEmail);
+            System.out.printf("The supplier with ID=%s has been saved \n", savedSupplier.getId());
+
+        }catch(ValidationException | IDNotUniqueException e){
+            System.out.println("Error saving the supplier: " + e.getMessage());
+        }
 
     }
 
