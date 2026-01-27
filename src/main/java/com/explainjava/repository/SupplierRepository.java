@@ -1,6 +1,7 @@
 package main.java.com.explainjava.repository;
 
 import main.java.com.explainjava.domain.Supplier;
+import main.java.com.explainjava.exceptions.IDNotUniqueException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +16,12 @@ public class SupplierRepository {
     }
 
     //Metodo utilizado para guardar un Proveedor
-    public Supplier save(Supplier supplier){
-        this.suppliers.put(supplier.getId(), supplier);
+    public Supplier save(Supplier supplier) throws IDNotUniqueException {
+        if(suppliers.containsKey(supplier.getId())){
+            throw new IDNotUniqueException("The id is not unique ");
+        }
+
+        suppliers.put(supplier.getId(), supplier);
         return supplier;
     }
 
