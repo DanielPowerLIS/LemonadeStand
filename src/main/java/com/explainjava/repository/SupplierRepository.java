@@ -34,7 +34,7 @@ public class SupplierRepository {
         return supplier;
     }
 
-    //Metdod para eliminar un proveedor
+    //Metodo para eliminar un proveedor
     public void delete(int supplierId){
         this.suppliers.remove(supplierId);
     }
