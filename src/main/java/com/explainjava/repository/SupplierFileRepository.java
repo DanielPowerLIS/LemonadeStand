@@ -44,8 +44,9 @@ public class SupplierFileRepository extends SupplierRepository{
         try{
             reader = new BufferedReader(new FileReader(filename));
             String line;
+            reader.readLine();
             while ((line = reader.readLine()) != null){
-                String[] elems = line.split(",");
+                String[] elems = line.split("\\|");
 
                 int id = Integer.parseInt(elems[0]);
                 String name = elems[1];
@@ -69,8 +70,12 @@ public class SupplierFileRepository extends SupplierRepository{
             writer = new BufferedWriter(new FileWriter(filename));
             Iterable<Supplier> suppliers = findAll();
 
+            String line = "id|name|email";
+            writer.write(line);
+            writer.newLine();
+
             for(Supplier supplier : suppliers){
-                String line = supplier.getId() + "," + supplier.getName() + "," + supplier.getEmail();
+                line = supplier.getId() + "|" + supplier.getName() + "|" + supplier.getEmail();
                 writer.write(line);
                 writer.newLine();
             }
